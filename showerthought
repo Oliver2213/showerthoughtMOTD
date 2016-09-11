@@ -10,7 +10,7 @@ import random
 showerthought_dir = "/usr/share/showerthought"
 showerthought_cfn = "thoughtcache.json"
 
-if os.path.exists(os.join(showerthought_dir, showerthought_cfn)):
+if os.path.exists(os.path.join(showerthought_dir, showerthought_cfn)):
     with open(os.path.join(showerthought_dir, showerthought_cfn), 'r') as f:
         # We're assuming our json cache is pretty small (in terms of total memory available), so we can load it all into memory... Just this once...
         thoughtlist = json.loads(f.read())
