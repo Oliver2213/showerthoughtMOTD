@@ -1,4 +1,4 @@
-# Showerthought - get a random showerthought from the subreddit with the same name
+# ShowerthoughtMOTD - get a random showerthought from the subreddit with the same name
 
 I use this script in my MOTD for amusement and more than ocasionally a really deep or interesting thought.
 
