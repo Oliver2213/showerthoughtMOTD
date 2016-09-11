@@ -41,6 +41,6 @@ for p in s.get_hot(limit=showerthought_limit):
 
 j = json.dumps(thoughtlist)
 
-with open(showerthought_cfn, 'w') as f:
+with open(os.path.join(showerthought_dir, showerthought_cfn), 'w') as f:
     f.write(j)
 

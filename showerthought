@@ -1,13 +1,23 @@
 #!/usr/bin/env python
 
 # Print a random "shower thought" from the subreddit with the same name
+# Author Blake Oliver <oliver22213@me.com>
 
-import praw
+import json
+import os
+import random
 
-r = praw.Reddit("""Showerthought MOTD script by /u/bladehunter2213""")
+showerthought_dir = "/usr/share/showerthought"
+showerthought_cfn = "thoughtcache.json"
 
-sub = r.get_subreddit("showerthoughts")
-
-thought = sub.get_random_submission().title
-print("Your showerthought is: ")
-print(thought)
+if os.path.exists(os.join(showerthought_dir, showerthought_cfn)):
+    with open(os.path.join(showerthought_dir, showerthought_cfn), 'r') as f:
+        # We're assuming our json cache is pretty small (in terms of total memory available), so we can load it all into memory... Just this once...
+        thoughtlist = json.loads(f.read())
+    
+    thought = random.choice(thoughtlist)
+    print("Your showerthought is: ")
+    print(thought)
+else:
+    # eventually manually retrieve a thought, for now... Bitch about our missing cache
+    print("Your showerthought is unavailable, somebody didn't set up the cache!")
