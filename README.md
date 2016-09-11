@@ -30,7 +30,7 @@ I found that this was just much too slow for my liking, so I made the showerthou
 To set this up, simply copy showerthought_cache to /usr/bin or somewhere similar, make sure it's executable, and after typing sudo crontab -e:
 
 ```
-* 2 * * * /usr/bin/showerthought_cache
+0 */2 * * * /usr/bin/showerthought_cache
 ```
 
 Will set things up so the cache gets refreshed every 2 hours. You can, of course, set this how you like.
