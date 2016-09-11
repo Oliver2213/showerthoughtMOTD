@@ -1,0 +1,46 @@
+#!/usr/bin/env python
+
+# Showerthought cache script, by Blake Oliver <oliver22213@me.com>
+
+# directly retrieving a thought from /r/showerthoughts manually on every login
+# is too slow
+# This script is intended to be run from cron or something similar;
+# it will create / update a cache of "thoughts" in /usr/share/showerthought
+# that the 'showerthought' script, whether called for the MOTD, or 
+# manually, will randomly pick one from
+
+import os
+import praw
+import json
+
+# Variables that control aspects of the cache
+
+# Location of the cache directory (must be the same in the 'showerthought' script
+showerthought_dir = "/usr/share/showerthought"
+
+# Filename to store caches in
+# This must be the same in the 'showerthought' script
+showerthought_cfn = "thoughtcache.json"
+
+# Limit of how many "thoughts" to cache
+# Note: the API limit for one request to Reddit is 100;
+# with 2 seconds between requests, the higher the limit the longer this script will take
+# Depending on how long between cache refreshes there is, you might want
+# igher for longer times between refreshes and lower for shorter ones
+showerthought_limit = 100
+
+
+if os.path.exists(showerthought_dir) == False:
+    os.makedirs(showerthought_dir)
+
+thoughtlist = []
+r = praw.Reddit("""Showerthought MOTD caching script by /u/bladehunter2213""")
+s = r.get_subreddit("showerthoughts")
+for p in s.get_hot(limit=showerthought_limit):
+    thoughtlist.append(p.title)
+
+j = json.dumps(thoughtlist)
+
+with open(showerthought_cfn, 'w') as f:
+    f.write(j)
+
