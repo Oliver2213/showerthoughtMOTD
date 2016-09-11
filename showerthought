@@ -1,0 +1,13 @@
+#!/usr/bin/env python
+
+# Print a random "shower thought" from the subreddit with the same name
+
+import praw
+
+r = praw.Reddit("""Showerthought MOTD script by /u/bladehunter2213""")
+
+sub = r.get_subreddit("showerthoughts")
+
+thought = sub.get_random_submission().title
+print("Your showerthought is: ")
+print(thought)
